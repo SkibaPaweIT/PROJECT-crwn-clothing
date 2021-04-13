@@ -6,8 +6,11 @@ function App() {
   return (
     <div>
       <HomePage/>
+      <div>
+        testing stuff
+      </div>
     </div>
-
+    
 
   );
 }
