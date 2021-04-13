@@ -5,8 +5,13 @@ import HomePage from './components/homepage.component'
 function App() {
   return (
     <div>
+      <div>
+        Hello world
+      </div>
       <HomePage/>
     </div>
+
+
   );
 }
 
