@@ -32,7 +32,7 @@ class App extends React.Component {
                 ...snapShot.data()
               }
             });
-            //console.log(this.state); //remember the set state is asynchronous so we need to pass second function as a parameter
+            //`console.log(this.state); //remember the set state is asynchronous so we need to pass second function as a parameter
           });
           
         }

@@ -17,5 +17,5 @@ const MenuItem = ({title , imageUrl, size , history , linkUrl , match}) => (  //
 </div>
 )
 
-export default withRouter(MenuItem); //Super power component with extra propsa D: 
+export default withRouter(MenuItem); //Super power component with extra props D: 
 
