@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import {Switch ,Route } from 'react-router-dom';
+import {Switch ,Route, Redirect } from 'react-router-dom';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import {connect} from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions'
@@ -47,7 +47,12 @@ class App extends React.Component {
         <Switch> {/* It will not render anything else */}
           <Route exact path='/' component={HomePage}/> {/* if we don't use exact it will get every route where it's slash */}
           <Route exact path='/shop' component={ShopPage}/>
-          <Route exact path='/signin' component={SignInAndSignUpPage}/>
+          <Route exact path='/signin' 
+                render={()=> this.props.currentUser ? (
+                  <Redirect to='/' />
+                  ):(
+                    <SignInAndSignUpPage/> 
+                  )}/>
         </Switch>
       </div>
     );
@@ -55,10 +60,15 @@ class App extends React.Component {
  
 }
 
+const mapStateToProps = ({user}) => ({
+
+    currentUser: user.currentUser
+})
+
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)) //way for redux to know whatever you pass it will be an action object passed to every reducer
 })
 
 export default connect(
-  null,
-  mapDispatchToProps )(App);
+  mapStateToProps,
+  mapDispatchToProps)(App);
