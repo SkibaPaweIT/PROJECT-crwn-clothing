@@ -22,11 +22,11 @@
     border: 1px solid black;
   }
 
-  &.google-sign-in{
+  &.google-sign-in {
     background-color: #4285f4;
     color: white;
 
-    &:hover{
+    &:hover {
       background-color: #357ae8;
       border: none;
     }
@@ -37,11 +37,10 @@
     color: black;
     border: 1px solid black;
 
-    &:hover{
-     background-color: black;
-     color: white;
-     border: none;
-   }
- }
-
+    &:hover {
+      background-color: black;
+      color: white;
+      border: none;
+    }
+  }
 }

@@ -5,9 +5,12 @@ import {Switch ,Route, Redirect } from 'react-router-dom';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import {connect} from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions'
+import { selectCurrentUser} from './redux/user/user.selectors'
+import { createStructuredSelector} from 'reselect'
 
 import HomePage from './pagges/homepage/homepage.component';
 import ShopPage from './pagges/shop/shop.component';
+import CheckoutPage from './pagges/checkout/checkout.component';
 import SignInAndSignUpPage from './pagges/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import Header from './components/header/header.component';
 
@@ -46,6 +49,7 @@ class App extends React.Component {
       <Header/>
         <Switch> {/* It will not render anything else */}
           <Route exact path='/' component={HomePage}/> {/* if we don't use exact it will get every route where it's slash */}
+          <Route exact path='/checkout' component={CheckoutPage}/>
           <Route exact path='/shop' component={ShopPage}/>
           <Route exact path='/signin' 
                 render={()=> this.props.currentUser ? (
@@ -60,9 +64,9 @@ class App extends React.Component {
  
 }
 
-const mapStateToProps = ({user}) => ({
+const mapStateToProps = createStructuredSelector({
 
-    currentUser: user.currentUser
+    currentUser: selectCurrentUser
 })
 
 const mapDispatchToProps = dispatch => ({
