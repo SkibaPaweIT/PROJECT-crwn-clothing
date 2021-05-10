@@ -50,7 +50,7 @@ class App extends React.Component {
         <Switch> {/* It will not render anything else */}
           <Route exact path='/' component={HomePage}/> {/* if we don't use exact it will get every route where it's slash */}
           <Route exact path='/checkout' component={CheckoutPage}/>
-          <Route exact path='/shop' component={ShopPage}/>
+          <Route path='/shop' component={ShopPage}/>
           <Route exact path='/signin' 
                 render={()=> this.props.currentUser ? (
                   <Redirect to='/' />
