@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 import {Switch ,Route, Redirect } from 'react-router-dom';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument /*, addCollectionAndDocuments*/ } from './firebase/firebase.utils';
 import {connect} from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions'
 import { selectCurrentUser} from './redux/user/user.selectors'
@@ -13,20 +13,22 @@ import ShopPage from './pagges/shop/shop.component';
 import CheckoutPage from './pagges/checkout/checkout.component';
 import SignInAndSignUpPage from './pagges/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import Header from './components/header/header.component';
-
+//import { selectCollectionsForPreview } from './redux/shop/shop.selector'
 
 
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
 
+
+
   componentDidMount(){
-    const {setCurrentUser} = this.props;
-    this.unsubscribeFromAuth=auth.onAuthStateChanged(async userAuth => {
+    const {setCurrentUser /*, collectionsArray */ } = this.props;
+    this.unsubscribeFromAuth=auth.onAuthStateChanged(async userAuth => { //auth is from firebase
         if(userAuth){ //if he signs in then it's ok. we get data and stuff
           const userRef = await createUserProfileDocument(userAuth)
 
-          userRef.onSnapshot(snapShot => { 
+          userRef.onSnapshot(snapShot => {  //it's listener checking if the snapshot changes
               setCurrentUser({
                 id: snapShot.id,
                 ...snapShot.data()
@@ -36,6 +38,7 @@ class App extends React.Component {
         }
     //userAuth is null so current state is Null so we aren't signed in and stuff
         setCurrentUser(userAuth);
+        //addCollectionAndDocuments('collections', collectionsArray.map(({title, items}) => ({title, items}) ))
     });
   }
 
@@ -66,7 +69,8 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
 
-    currentUser: selectCurrentUser
+    currentUser: selectCurrentUser,
+    //collectionsArray: selectCollectionsForPreview
 })
 
 const mapDispatchToProps = dispatch => ({
